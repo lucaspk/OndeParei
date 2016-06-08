@@ -1,9 +1,10 @@
-package model;
+package Tests;
 
+import model.*;
 import static org.junit.Assert.*;
-
 import java.util.*;
 import org.junit.*;
+
 
 public class SerieTest {
 	
