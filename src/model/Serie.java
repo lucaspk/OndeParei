@@ -48,10 +48,4 @@ public class Serie {
 		this.episodeNumber = episode;
 	}
 
-	public static void main(String[] args) throws Exception {
-		Serie serie = new Serie("Arrow","12","01");
-//		System.out.println("12".matches(ValidacaoDados.getNumbersOnlyRegex()));
-//		System.out.println(ValidacaoDados.checkNumbersOnlyStringFormat("12"));
-//		System.out.println("12".matches("[0-9]{2,5}"));
-	}
 }
