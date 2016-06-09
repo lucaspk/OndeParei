@@ -3,7 +3,7 @@ package exceptions;
 public class InvalidSerieDataException extends Exception {
 
 	public InvalidSerieDataException(String string, String regex) {
-		super("The value of "+ string +" is invalid, because he doesn't match with the regex "+ regex +".");
+		super("The value "+ string +" is invalid, because he doesn't match with the regex format "+ regex +".");
 	}
 	
 	public InvalidSerieDataException(String message) {
