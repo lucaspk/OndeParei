@@ -1,100 +1,167 @@
-package Tests;
+package model;
 
-import model.*;
 import static org.junit.Assert.*;
+
 import java.util.*;
 import org.junit.*;
-
 
 public class SerieTest {
 	
 	private List<Serie> minhasSeries;
-	private Serie 	serieValida, 
-					serieNomeVazio, 
-					serieSeasonInvalida, 
-					serieEpisodeInvalido, 
-					serieNomeNull;
-					
+	
 	@Before
-	public void setUp() throws Exception{
+	public void setUp(){
 		minhasSeries = new ArrayList<Serie>();
-		serieValida = new Serie("The Flash","03","01");
+	}
+	
+	@Test
+	public void deveriaLancarInvalidNameExceptionNameNull(){
+		String InvalidNameExceptionMessage = "The name is invalid, because is null or empty.";
 		try {
-			
-			serieSeasonInvalida = new Serie("The BlackList","5","02");
-			serieEpisodeInvalido = new Serie("The Originals","04","1");
-			serieNomeNull = new Serie(null,"07","03");
-			serieNomeVazio = new Serie("","07","03");
-			
+			new Serie(null, null, null);
+			fail();
 		} catch (Exception e) {
-			e.getMessage();
+			assertEquals(InvalidNameExceptionMessage, e.getMessage());
 		}
 	}
 	
 	@Test
-	public void deveriaCadastrarSerie() throws Exception{
-		minhasSeries.add(serieValida);
-		assertEquals(1,minhasSeries.size());
-		minhasSeries.add(serieSeasonInvalida);
-		minhasSeries.add(serieEpisodeInvalido);
-		minhasSeries.add(serieNomeNull);
-		assertEquals(1,minhasSeries.size());
+	public void deveriaLancarInvalidNameExceptionNameVazio(){
+		String InvalidNameExceptionMessage = "The name is invalid, because is null or empty.";
+		try {
+			new Serie("", null, null);
+			fail();
+		} catch (Exception e) {
+			assertEquals(InvalidNameExceptionMessage, e.getMessage());
+		}
 	}
 	
-//	@Test
-//	public void naoDeveriaCadastrarComSerieNomeVazio() throws Exception{
-//		try {
-//			Serie serie = new Serie("","03","01");
-//			Serie serie2 = new Serie("","05","02");
-//			Serie serie3 = new Serie("","04","01");
-//			Serie serie4 = new Serie("","07","03");
-//			Serie serie5 = new Serie("","05","02");
-//			minhasSeries.add(serie);
-//			minhasSeries.add(serie2);
-//			minhasSeries.add(serie3);
-//			minhasSeries.add(serie4);
-//			minhasSeries.add(serie5);
-//		} catch (Exception e) {
-//			e.getMessage();
-//		}		
-//		assertFalse(minhasSeries.size() == 5);
-//	}
-//	
-//	@Test
-//	public void naoDeveriaCadastrarSerieComSeasonFormatoInvalido() throws Exception{
-//		try {
-//			Serie serie = new Serie("The Flash","3","01");
-//			Serie serie2 = new Serie("The BlackList","5","02");
-//			Serie serie3 = new Serie("The Originals","4","01");
-//			Serie serie4 = new Serie("The Walking Dead","7","03");
-//			Serie serie5 = new Serie("Arrow","5","02");
-//			minhasSeries.add(serie);
-//			minhasSeries.add(serie2);
-//			minhasSeries.add(serie3);
-//			minhasSeries.add(serie4);
-//			minhasSeries.add(serie5);
-//		} catch (Exception e) {
-//			e.getMessage();
-//		}		
-//		assertFalse(minhasSeries.size() == 5);
-//	}
-//	
-//	@Test
-//	public void naoDeveriaCadastrarSerieComEpisodeFormatoInvalido() throws Exception{
-//		try {
-//			Serie serie = new Serie("The Flash","03","1");
-//			Serie serie2 = new Serie("The BlackList","05","2");
-//			Serie serie3 = new Serie("The Originals","04","1");
-//			Serie serie4 = new Serie("The Walking Dead","07","3");
-//			Serie serie5 = new Serie("Arrow","05","02");
-//			minhasSeries.add(serie);
-//			minhasSeries.add(serie2);
-//			minhasSeries.add(serie3);
-//			minhasSeries.add(serie4);
-//			minhasSeries.add(serie5);
-//		} catch (Exception e) {
-//			e.getMessage();
-//		}		
-//		assertFalse(minhasSeries.size() == 5);
-//	}	
+	@Test
+	public void deveriaLancarInvalidSerieDataExceptionSeasonVazia(){
+		String InvalidNameExceptionMessage = "The value  is invalid, because he doesn't match with the regex format ^([1-9]{2,5}[0-9]*|[0-9][1-9])$.";
+		try {
+			new Serie("Arrow", "", null);
+			fail();
+		} catch (Exception e) {
+			assertEquals(InvalidNameExceptionMessage, e.getMessage());
+		}
+	}
+	
+	@Test
+	public void deveriaLancarInvalidSerieDataExceptionEpisodeVazio(){
+		String InvalidNameExceptionMessage = "The value  is invalid, because he doesn't match with the regex format ^([1-9]{2,5}[0-9]*|[0-9][1-9])$.";
+		try {
+			new Serie("Arrow", "15", "");
+			fail();
+		} catch (Exception e) {
+			assertEquals(InvalidNameExceptionMessage, e.getMessage());
+		}
+	}
+	
+	@Test
+	public void deveriaLancarInvalidSerieDataExceptionSeasonNull(){
+		String InvalidNameExceptionMessage = "The value null is invalid, because he doesn't match with the regex format ^([1-9]{2,5}[0-9]*|[0-9][1-9])$.";
+		try {
+			new Serie("Arrow", null, null);
+			fail();
+		} catch (Exception e) {
+			assertEquals(InvalidNameExceptionMessage, e.getMessage());
+		}
+	}
+	
+	@Test
+	public void deveriaLancarInvalidSerieDataExceptionEpisodeNull(){
+		String InvalidNameExceptionMessage = "The value null is invalid, because he doesn't match with the regex format ^([1-9]{2,5}[0-9]*|[0-9][1-9])$.";
+		try {
+			new Serie("Arrow", "15", null);
+			fail();
+		} catch (Exception e) {
+			assertEquals(InvalidNameExceptionMessage, e.getMessage());
+		}
+	}
+	
+	@Test
+	public void deveriaLancarInvalidSerieDataExceptionEpisodeApenasUmDigito(){
+		String InvalidNameExceptionMessage = "The value 1 is invalid, because he doesn't match with the regex format ^([1-9]{2,5}[0-9]*|[0-9][1-9])$.";
+		try {
+			new Serie("Arrow", "1", "1");
+			fail();
+		} catch (Exception e) {
+			assertEquals(InvalidNameExceptionMessage, e.getMessage());
+		}
+	}
+	
+	@Test
+	public void deveriaLancarInvalidSerieDataExceptionSeasonApenasUmDigito(){
+		String InvalidNameExceptionMessage = "The value 1 is invalid, because he doesn't match with the regex format ^([1-9]{2,5}[0-9]*|[0-9][1-9])$.";
+		try {
+			new Serie("Arrow", "12", "1");
+			fail();
+		} catch (Exception e) {
+			assertEquals(InvalidNameExceptionMessage, e.getMessage());
+		}
+	}
+	
+	@Test
+	public void deveriaLancarInvalidSerieDataExceptionEpisodeFormatoInvalido(){
+		String InvalidNameExceptionMessage = "The value 023456 is invalid, because he doesn't match with the regex format ^([1-9]{2,5}[0-9]*|[0-9][1-9])$.";
+		try {
+			new Serie("Arrow", "023456", null);
+			fail();
+		} catch (Exception e) {
+			assertEquals(InvalidNameExceptionMessage, e.getMessage());
+		}
+	}
+	
+	@Test
+	public void deveriaLancarInvalidSerieDataExceptionSeasonFormatoInvalido(){
+		String InvalidNameExceptionMessage = "The value 023456 is invalid, because he doesn't match with the regex format ^([1-9]{2,5}[0-9]*|[0-9][1-9])$.";
+		try {
+			new Serie("Arrow", "12", "023456");
+			fail();
+		} catch (Exception e) {
+			assertEquals(InvalidNameExceptionMessage, e.getMessage());
+		}
+	}
+
+	@Test
+	public void deveriaLancarInvalidSerieDataExceptionEpisodeDoisDigitosZero(){
+		String InvalidNameExceptionMessage = "The value 00 is invalid, because he doesn't match with the regex format ^([1-9]{2,5}[0-9]*|[0-9][1-9])$.";
+		try {
+			new Serie("Arrow", "00", null);
+			fail();
+		} catch (Exception e) {
+			assertEquals(InvalidNameExceptionMessage, e.getMessage());
+		}
+	}
+	
+	@Test
+	public void deveriaLancarInvalidSerieDataExceptionSeasonDoisDigitosZero(){
+		String InvalidNameExceptionMessage = "The value 00 is invalid, because he doesn't match with the regex format ^([1-9]{2,5}[0-9]*|[0-9][1-9])$.";
+		try {
+			new Serie("Arrow", "12", "00");
+			fail();
+		} catch (Exception e) {
+			assertEquals(InvalidNameExceptionMessage, e.getMessage());
+		}
+	}
+	
+	@Test
+	public void deveriaAdicionarNaColecaoDeSeriesDadosComDoisDigitos() throws Exception{
+		minhasSeries.add(new Serie("The Flash","03","01"));
+		minhasSeries.add(new Serie("Arrow","05","01"));
+		minhasSeries.add(new Serie("Gotham","03","01"));
+		minhasSeries.add(new Serie("The Originals","04","01"));
+		assertTrue(minhasSeries.size() == 4);
+	}
+	
+	@Test
+	public void deveriaAdicionarNaColecaoDeSeriesDadosComMaisDeDoisDigitos() throws Exception{
+		minhasSeries.add(new Serie("The Flash","123","54561"));
+		minhasSeries.add(new Serie("Arrow","1230515","44561"));
+		minhasSeries.add(new Serie("Gotham","1230123","4554601"));
+		minhasSeries.add(new Serie("The Originals","1230124","56052541"));
+		assertTrue(minhasSeries.size() == 4);
+	}
+	
 }

@@ -48,4 +48,16 @@ public class Serie {
 		this.episodeNumber = episode;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Serie)){
+			return false; 
+		}
+		Serie serie = (Serie) obj;
+		return this.getSerieName().equals(serie.getSerieName()) &&
+				this.getSeason().equals(serie.getSeason()) &&
+				this.getEpisode().equals(getEpisode());
+	}
+	
+	
 }
